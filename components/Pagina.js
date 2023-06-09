@@ -10,7 +10,7 @@ const Pagina = (props) => {
          <div>
 
             <Cabecalho />
-            <div className='bg-danger text-white py-3 text-center mb-3'>
+            <div>
                 <h1>{props.titulo}</h1>
             </div>
 
