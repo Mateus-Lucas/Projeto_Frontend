@@ -10,6 +10,15 @@ const equipeValidator = {
           message: 'Máximo de caracteres é 10'
       },
   },
+  titulos: {
+    required: 'Campo obrigatório'
+  },
+  pais: {
+    required: 'Campo obrigatório'
+  },
+  quant_jogadores: {
+    required: 'Campo obrigatório'
+  }
 }
 
 export default equipeValidator
