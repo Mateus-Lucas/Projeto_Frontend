@@ -11,12 +11,11 @@ import axios from 'axios'
 const index = () => {
 
   const [jogadores, setjogadores] = useState([])
+  const [equipes, setEquipes] = useState([])
 
   useEffect(() => {
-    axios.get('/api/jogadores').then(resultado => {
-      setjogadores(resultado.data);
-    })
-  }, [])
+    getAll();
+  }, []);
 
   function getAll() {
     axios.get('/api/jogadores').then(resultado => {

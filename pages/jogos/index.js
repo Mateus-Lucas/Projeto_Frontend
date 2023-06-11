@@ -33,32 +33,54 @@ const index = () => {
 
 
   return (
-    <Pagina titulo='jogos'>
-      <Button href='/jogos/form' className='mb-2' variant="primary">Novo
-        <AiOutlinePlus />
-      </Button>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Opções</th>
-            <th>Nome</th>
-          </tr>
-        </thead>
-        <tbody>
-          {jogos.map(item => (
-            <tr key={item.id}>
-              <td>
-                <Link href={'/jogos/' + item.id}>
-                  <BiEditAlt className='me-3' style={{ cursor: 'pointer' }} />
-                </Link>
-                <BsTrash3Fill style={{ cursor: 'pointer' }}
-                  onClick={() => excluir(item.id)} className='text-danger' />
-              </td>
-              <td>{item.nome}</td>
+    <Pagina>
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <h3 className='text-white'>tabela de Jogos</h3>
+      </div>
+      <br></br>
+      <div className="champions-table-container">
+        <Button href="/jogos/form" className="mb-2" variant="light">
+          Novo Jogo <AiOutlinePlus />
+        </Button>
+        <br></br>
+        <Table striped bordered hover variant="light" className="champions-table">
+          <thead>
+            <tr>
+              <th>Opções</th>
+              <th>Casa</th>
+              <td>#</td>
+              <th>Visitante</th>
+              <th>Data</th>
+              <th>Horário</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {jogos.map((item) => (
+              <tr key={item.id}>
+                <td>
+                  <Link href={'/jogos/' + item.id}>
+                    <BiEditAlt title='Editar'
+                      className="me-3 champions-icon"
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </Link>
+                  <BsTrash3Fill title='Excluir'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => excluir(item.id)}
+                    className="text-primary champions-icon"
+                  />
+                </td>
+                <td>{item.casa}</td>
+                <td>x</td>
+                <td>{item.visitante}</td>
+                <td>{item.data}</td>
+                <td>{item.horario}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </Pagina>
   )
 }

@@ -1,8 +1,8 @@
-import Pagina from '@/components/Pagina'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { HiCheck } from 'react-icons/hi'
@@ -10,9 +10,19 @@ import { HiArrowNarrowLeft } from 'react-icons/hi'
 import jogadorValidator from '@/validators/jogadorValidator'
 
 const form = () => {
-
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { push } = useRouter()
+    const [equipes, setEquipes] = useState([]);
+
+    useEffect(() => {
+        getAll();
+    }, []);
+
+    function getAll() {
+        axios.get('/api/equipes').then(resultado => {
+            setEquipes(resultado.data);
+        });
+    }
 
     function salvar(dados) {
 
@@ -99,13 +109,19 @@ const form = () => {
                             <Form.Group className="mb-3" controlId="equipe">
                                 <Form.Label style={{ color: 'white' }}>Equipe:</Form.Label>
                                 <Form.Control
+                                    as="select"
                                     isInvalid={errors.equipe}
                                     isValid={!errors.equipe}
-                                    type="text"
                                     {...register('equipe', jogadorValidator.equipe)}
                                     style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                    placeholder="Digite a equipe"
-                                />
+                                >
+                                    <option value="">Selecione a equipe</option>
+                                    {equipes.map((item, index) => (
+                                        <option key={index} value={item.nome}>
+                                            {item.nome}
+                                        </option>
+                                    ))}
+                                </Form.Control>
                                 {errors.equipe && <p style={{ color: 'red' }}>{errors.equipe.message}</p>}
                             </Form.Group>
                         </Row>

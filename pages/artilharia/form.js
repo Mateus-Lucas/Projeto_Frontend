@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { HiCheck } from 'react-icons/hi'
@@ -13,6 +13,25 @@ const form = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { push } = useRouter()
+    const [equipes, setEquipes] = useState([]);
+    const [jogadores, setJogadores] = useState([]);
+
+    useEffect(() => {
+        getAll1();
+        getAll2();
+    }, []);
+
+    function getAll1() {
+        axios.get('/api/equipes').then(resultado => {
+            setEquipes(resultado.data);
+        });
+    }
+
+    function getAll2() {
+        axios.get('/api/jogadores').then(resultado => {
+            setJogadores(resultado.data);
+        });
+    }
 
     function salvar(dados) {
 
@@ -42,27 +61,43 @@ const form = () => {
                         <Row>
                             <Col>
                                 <Form.Group className="mb-3" controlId="nome">
-                                    <Form.Label style={{ color: 'white' }}>Nome:</Form.Label>
+                                    <Form.Label style={{ color: 'white' }}>Nome do Jogador:</Form.Label>
                                     <Form.Control
+                                        as="select"
                                         isInvalid={errors.nome}
                                         isValid={!errors.nome}
                                         type="text"
                                         {...register('nome', artilhariaValidator.nome)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite o nome"
-                                    />
+                                    >
+                                        <option value="">Selecione o Jogador</option>
+                                        {jogadores.map((item, index) => (
+                                            <option key={index} value={item.nome}>
+                                                {item.nome}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+
                                     {errors.nome && <p style={{ color: 'red' }}>{errors.nome.message}</p>}
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="equipe">
                                     <Form.Label style={{ color: 'white' }}>Equipe:</Form.Label>
                                     <Form.Control
+                                        as="select"
                                         isInvalid={errors.equipe}
                                         isValid={!errors.equipe}
                                         type="text"
                                         {...register('equipe', artilhariaValidator.equipe)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a equipe"
-                                    />
+                                    >
+                                        <option value="">Selecione a equipe</option>
+                                        {equipes.map((item, index) => (
+                                            <option key={index} value={item.nome}>
+                                                {item.nome}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+
                                     {errors.equipe && <p style={{ color: 'red' }}>{errors.equipe.message}</p>}
                                 </Form.Group>
                             </Col>
