@@ -33,32 +33,54 @@ const index = () => {
 
 
   return (
-    <Pagina titulo='jogadores'>
-      <Button href='/jogadores/form' className='mb-2' variant="primary">Novo
-        <AiOutlinePlus />
-      </Button>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Opções</th>
-            <th>Nome</th>
-          </tr>
-        </thead>
-        <tbody>
-          {jogadores.map(item => (
-            <tr key={item.id}>
-              <td>
-                <Link href={'/jogadores/' + item.id}>
-                  <BiEditAlt className='me-3' style={{ jogadorer: 'pointer' }} />
-                </Link>
-                <BsTrash3Fill style={{ jogadorer: 'pointer' }}
-                  onClick={() => excluir(item.id)} className='text-danger' />
-              </td>
-              <td>{item.nome}</td>
+    <Pagina>
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <h3 className='text-white'>Jogadores da UEFA Champions League</h3>
+      </div>
+      <br></br>
+      <div className="champions-table-container">
+        <Button href="/jogadores/form" className="mb-2" variant="light">
+          Novo Jogador <AiOutlinePlus />
+        </Button>
+        <br></br>
+        <Table striped bordered hover variant="light" className="champions-table">
+          <thead>
+            <tr>
+              <th>Opções</th>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Posição</th>
+              <th>Altura</th>
+              <th>Equipe</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {jogadores.map((item) => (
+              <tr key={item.id}>
+                <td>
+                  <Link href={'/jogadores/' + item.id}>
+                    <BiEditAlt title='Editar'
+                      className="me-3 champions-icon"
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </Link>
+                  <BsTrash3Fill title='Excluir'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => excluir(item.id)}
+                    className="text-primary champions-icon"
+                  />
+                </td>
+                <td>{item.nome}</td>
+                <td>{item.idade}</td>
+                <td>{item.posicao}</td>
+                <td>{item.altura}</td>
+                <td>{item.equipe}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </Pagina>
   )
 }

@@ -61,7 +61,7 @@ const form = () => {
                                         type="text"
                                         {...register('equipe', artilhariaValidator.equipe)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite o país"
+                                        placeholder="Digite a equipe"
                                     />
                                     {errors.equipe && <p style={{ color: 'red' }}>{errors.equipe.message}</p>}
                                 </Form.Group>
@@ -77,7 +77,7 @@ const form = () => {
                                         type="text"
                                         {...register('gols', artilhariaValidator.gols)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a quantidade de títulos"
+                                        placeholder="Digite a quantidade de gols"
                                     />
                                     {errors.gols && <p style={{ color: 'red' }}>{errors.gols.message}</p>}
                                 </Form.Group>
