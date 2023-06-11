@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Cabecalho = () => {
     return (
         <>
-            <Navbar bg="dark" variant="dark" className="custom-navbar">
+            <Navbar bg="dark" variant="dark" className="custom-navbar" >
                 <Container>
                     <Nav className="mx-auto">
                         <Navbar.Brand href="#home">Inicio</Navbar.Brand>

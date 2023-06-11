@@ -1,4 +1,4 @@
-import Pagina from '@/components/Pagina'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
