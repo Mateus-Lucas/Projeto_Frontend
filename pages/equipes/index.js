@@ -54,15 +54,15 @@ const Index = () => {
               <tr key={item.id}>
                 <td>
                   <Link href={'/equipes/' + item.id}>
-                    <BiEditAlt
+                    <BiEditAlt title='Editar'
                       className="me-3 champions-icon"
                       style={{ cursor: 'pointer' }}
                     />
                   </Link>
-                  <BsTrash3Fill
+                  <BsTrash3Fill title='Excluir'
                     style={{ cursor: 'pointer' }}
                     onClick={() => excluir(item.id)}
-                    className="text-danger champions-icon"
+                    className="text-primary champions-icon"
                   />
                 </td>
                 <td>{item.nome}</td>
