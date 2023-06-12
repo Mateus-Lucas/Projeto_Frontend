@@ -10,6 +10,7 @@ import axios from 'axios';
 const Index = () => {
   const [artilharia, setArtilharia] = useState([]);
   const [classificacao, setClassificacao] = useState([]);
+  const [colunaOrdenacao, setColunaOrdenacao] = useState('gols');
 
   useEffect(() => {
     axios.get('/api/artilharia').then((resultado) => {
@@ -18,8 +19,8 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    ordenarPorGols();
-  }, [artilharia]);
+    ordenar();
+  }, [artilharia, colunaOrdenacao]);
 
   function getAll() {
     axios.get('/api/artilharia').then((resultado) => {
@@ -34,8 +35,10 @@ const Index = () => {
     }
   }
 
-  function ordenarPorGols() {
-    const artilhariaOrdenada = [...artilharia].sort((a, b) => b.gols - a.gols);
+  function ordenar() {
+    const artilhariaOrdenada = [...artilharia].sort((a, b) =>
+      b[colunaOrdenacao] - a[colunaOrdenacao]
+    );
     setClassificacao(artilhariaOrdenada);
   }
 
@@ -47,10 +50,28 @@ const Index = () => {
       </div>
       <br />
       <div className="champions-table-container">
-        <Button href="/artilharia/form" className="mb-2" variant="light">
-          Novo jogador <AiOutlinePlus />
-        </Button>
-        <br />
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+          <div>
+            <Button href="/artilharia/form" className="mb-2" variant="light">
+              Novo jogador <AiOutlinePlus />
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="light"
+              onClick={() => setColunaOrdenacao('gols')}
+            >
+              Ordenar por Gols
+            </Button>
+            {' '}
+            <Button
+              variant="light"
+              onClick={() => setColunaOrdenacao('assistencias')}
+            >
+              Ordenar por Assistências
+            </Button>
+          </div>
+        </div>
         <Table striped bordered hover variant="light" className="champions-table">
           <thead>
             <tr>
@@ -58,8 +79,9 @@ const Index = () => {
               <th>Posição</th>
               <th>Nome do Jogador</th>
               <th>Equipe</th>
-              <th>Quantidade de gols</th>
-              <th>Quantidade de jogos</th>
+              <th>Gols</th>
+              <th>Assistências</th>
+              <th>Jogos</th>
             </tr>
           </thead>
           <tbody>
@@ -81,6 +103,7 @@ const Index = () => {
                   <td>{item.nome}</td>
                   <td>{item.equipe}</td>
                   <td>{item.gols}</td>
+                  <td>{item.assistencias}</td>
                   <td>{item.quant_jogos}</td>
                 </tr>
               );

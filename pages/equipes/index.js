@@ -6,6 +6,7 @@ import { BiEditAlt } from 'react-icons/bi';
 import Link from 'next/link';
 import axios from 'axios';
 import Pagina from '@/components/Pagina';
+import ApexChart from '@/components/ApexChart';
 
 const Index = () => {
   const [equipes, setEquipes] = useState([]);
@@ -74,6 +75,10 @@ const Index = () => {
           </tbody>
         </Table>
       </div>
+      <br></br>
+      <ApexChart/>
+      <br></br>
+      <br></br>
     </Pagina>
   );
 };

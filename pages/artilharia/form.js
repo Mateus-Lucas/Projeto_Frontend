@@ -130,7 +130,20 @@ const form = () => {
                                     />
                                     {errors.quant_jogos && <p style={{ color: 'red' }}>{errors.quant_jogos.message}</p>}
                                 </Form.Group>
-
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3" controlId="assistencias">
+                                    <Form.Label style={{ color: 'white' }}>Assistências:</Form.Label>
+                                    <Form.Control
+                                        isInvalid={errors.assistencias}
+                                        isValid={!errors.assistencias}
+                                        type="text"
+                                        {...register('assistencias', artilhariaValidator.assistencias)}
+                                        style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
+                                        placeholder="Digite a quantidade de jogos"
+                                    />
+                                    {errors.assistencias && <p style={{ color: 'red' }}>{errors.assistencias.message}</p>}
+                                </Form.Group>
                             </Col>
                         </Row>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
