@@ -35,7 +35,8 @@ const form = () => {
     }
 
     return (
-        <Row>
+        <>
+            <Row>
                 <Col xs={12} md={6}>
                     <div>
                         <img
@@ -87,7 +88,7 @@ const form = () => {
                                         <Form.Control
                                             isInvalid={errors.titulos}
                                             isValid={!errors.titulos}
-                                            type="text"
+                                            type="number"
                                             {...register('titulos', equipeValidator.titulos)}
                                             style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                             placeholder="Digite a quantidade de títulos"
@@ -101,7 +102,7 @@ const form = () => {
                                         <Form.Control
                                             isInvalid={errors.quant_jogadores}
                                             isValid={!errors.quant_jogadores}
-                                            type="text"
+                                            type="number"
                                             {...register('quant_jogadores', equipeValidator.quant_jogadores)}
                                             style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                             placeholder="Digite a quantidade de jogadores"
@@ -129,7 +130,7 @@ const form = () => {
                     </div>
                 </Col>
             </Row>
-
+        </>
     )
 }
 

@@ -2,7 +2,7 @@ import Pagina from '@/components/Pagina'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
@@ -14,6 +14,17 @@ const form = () => {
 
     const { push, query } = useRouter()
     const { register, handleSubmit, setValue, formState: { errors } } = useForm()
+    const [equipes, setEquipes] = useState([]);
+
+    useEffect(() => {
+        getAll();
+    }, []);
+
+    function getAll() {
+        axios.get('/api/equipes').then(resultado => {
+            setEquipes(resultado.data);
+        });
+    }
 
     useEffect(() => {
         if (query.id) {
@@ -66,17 +77,61 @@ const form = () => {
                                     />
                                     {errors.nome && <p style={{ color: 'red' }}>{errors.nome.message}</p>}
                                 </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3" controlId="equipe">
+                                    <Form.Label style={{ color: 'white' }}>Equipe:</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        isInvalid={errors.equipe}
+                                        isValid={!errors.equipe}
+                                        {...register('equipe', jogadorValidator.equipe)}
+                                        style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
+                                    >
+                                        <option value="">Selecione a equipe</option>
+                                        {equipes.map((item, index) => (
+                                            <option key={index} value={item.nome}>
+                                                {item.nome}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+                                    {errors.equipe && <p style={{ color: 'red' }}>{errors.equipe.message}</p>}
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
                                 <Form.Group className="mb-3" controlId="posicao">
                                     <Form.Label style={{ color: 'white' }}>Posição:</Form.Label>
                                     <Form.Control
+                                        as="select"
                                         isInvalid={errors.posicao}
                                         isValid={!errors.posicao}
-                                        type="text"
                                         {...register('posicao', jogadorValidator.posicao)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a posição do jogador"
-                                    />
+                                        placeholder="Selecione a posição do jogador"
+                                    >
+                                        <option value="Atacante">Atacante</option>
+                                        <option value="Meio-Campo">Meio-Campo</option>
+                                        <option value="Zagueiro">Zagueiro</option>
+                                        <option value="Goleiro">Goleiro</option>
+                                    </Form.Control>
                                     {errors.posicao && <p style={{ color: 'red' }}>{errors.posicao.message}</p>}
+                                </Form.Group>
+
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3" controlId="contato">
+                                    <Form.Label style={{ color: 'white' }}>Contato:</Form.Label>
+                                    <Form.Control
+                                        isInvalid={errors.contato}
+                                        isValid={!errors.contato}
+                                        type="number"
+                                        {...register('contato', jogadorValidator.contato)}
+                                        style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
+                                        placeholder="Digite a quantidade de assistências"
+                                    />
+                                    {errors.contato && <p style={{ color: 'red' }}>{errors.contato.message}</p>}
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -87,7 +142,7 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.idade}
                                         isValid={!errors.idade}
-                                        type="text"
+                                        type="number"
                                         {...register('idade', jogadorValidator.idade)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a Idade do Jogador"
@@ -101,7 +156,7 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.altura}
                                         isValid={!errors.altura}
-                                        type="text"
+                                        type="number"
                                         {...register('altura', jogadorValidator.altura)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a Altura do jogador"
@@ -109,27 +164,15 @@ const form = () => {
                                     {errors.altura && <p style={{ color: 'red' }}>{errors.altura.message}</p>}
                                 </Form.Group>
                             </Col>
-                            <Form.Group className="mb-3" controlId="equipe">
-                                <Form.Label style={{ color: 'white' }}>Equipe:</Form.Label>
-                                <Form.Control
-                                    isInvalid={errors.equipe}
-                                    isValid={!errors.equipe}
-                                    type="text"
-                                    {...register('equipe', jogadorValidator.equipe)}
-                                    style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                    placeholder="Digite o país"
-                                />
-                                {errors.equipe && <p style={{ color: 'red' }}>{errors.equipe.message}</p>}
-                            </Form.Group>
                         </Row>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                            <Link href="/jogadors/" className="me-3">
+                            <Link href="/jogadores/" className="me-3">
                                 <Button variant="success" onClick={handleSubmit(alterar)}>
                                     <HiCheck style={{ marginRight: '5px' }} />
-                                    Salvar
+                                    Alterar
                                 </Button>
                             </Link>
-                            <Link href="/jogadors/">
+                            <Link href="/jogadores/">
                                 <Button variant="danger">
                                     <HiArrowNarrowLeft style={{ marginRight: '5px' }} />
                                     Voltar
@@ -140,6 +183,7 @@ const form = () => {
                 </div>
             </Col>
         </Row>
+
     )
 }
 

@@ -36,7 +36,7 @@ const index = () => {
     <Pagina>
       <br></br>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h3 className='text-white'>tabela de Jogos</h3>
+        <h3 className='text-white'>Tabela de Jogos</h3>
       </div>
       <br></br>
       <div className="champions-table-container">

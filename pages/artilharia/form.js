@@ -109,7 +109,7 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.gols}
                                         isValid={!errors.gols}
-                                        type="text"
+                                        type="number"
                                         {...register('gols', artilhariaValidator.gols)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de gols"
@@ -123,7 +123,7 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.quant_jogos}
                                         isValid={!errors.quant_jogos}
-                                        type="text"
+                                        type="number"
                                         {...register('quant_jogos', artilhariaValidator.quant_jogos)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de jogos"
@@ -137,10 +137,10 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.assistencias}
                                         isValid={!errors.assistencias}
-                                        type="text"
+                                        type="number"
                                         {...register('assistencias', artilhariaValidator.assistencias)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a quantidade de jogos"
+                                        placeholder="Digite a quantidade de assistências"
                                     />
                                     {errors.assistencias && <p style={{ color: 'red' }}>{errors.assistencias.message}</p>}
                                 </Form.Group>

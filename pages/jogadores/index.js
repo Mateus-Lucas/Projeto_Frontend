@@ -50,6 +50,7 @@ const index = () => {
               <th>Nome</th>
               <th>Idade</th>
               <th>Posição</th>
+              <th>Contato</th>
               <th>Altura</th>
               <th>Equipe</th>
             </tr>
@@ -73,6 +74,7 @@ const index = () => {
                 <td>{item.nome}</td>
                 <td>{item.idade}</td>
                 <td>{item.posicao}</td>
+                <td>{item.contato}</td>
                 <td>{item.altura}</td>
                 <td>{item.equipe}</td>
               </tr>

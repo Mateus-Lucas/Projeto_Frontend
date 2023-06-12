@@ -97,7 +97,7 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.data}
                                         isValid={!errors.data}
-                                        type="text"
+                                        type="date"
                                         {...register('data', jogoValidator.data)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de títulos"
@@ -111,7 +111,7 @@ const form = () => {
                                     <Form.Control
                                         isInvalid={errors.horario}
                                         isValid={!errors.horario}
-                                        type="text"
+                                        type="time"
                                         {...register('horario', jogoValidator.horario)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de jogadores"
