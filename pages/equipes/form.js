@@ -56,7 +56,7 @@ const Formulario = () => {
                                             type="text"
                                             {...register('nome', equipeValidator.nome)}
                                             style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                            placeholder="Digite o nome"
+                                            placeholder="Digite o nome do time"
                                         />
                                         {errors.nome && <p style={{ color: 'red' }}>{errors.nome.message}</p>}
                                     </Form.Group>

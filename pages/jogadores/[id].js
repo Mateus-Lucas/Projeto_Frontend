@@ -53,7 +53,7 @@ const form = () => {
 
         setValue(name, mask(valor, mascara));
     }
-    
+
     return (
         <Row>
             <Col xs={12} md={6}>
@@ -82,7 +82,7 @@ const form = () => {
                                         type="text"
                                         {...register('nome', jogadorValidator.nome)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite o nome"
+                                        placeholder="Digite o nome do jogador"
                                     />
                                     {errors.nome && <p style={{ color: 'red' }}>{errors.nome.message}</p>}
                                 </Form.Group>
