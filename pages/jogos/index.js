@@ -1,36 +1,60 @@
-import Pagina from '@/components/Pagina'
-import React, { useEffect, useState } from 'react'
-import { Button, Table } from 'react-bootstrap'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { BsTrash3Fill } from 'react-icons/bs'
-import { BiEditAlt } from 'react-icons/bi'
-import Link from 'next/link'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Table } from 'react-bootstrap';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { BsTrash3Fill } from 'react-icons/bs';
+import { BiEditAlt } from 'react-icons/bi';
+import Link from 'next/link';
+import axios from 'axios';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
+import Pagina from '@/components/Pagina';
 
-const index = () => {
-
-  const [jogos, setjogos] = useState([])
+const Index = () => {
+  const [jogos, setJogos] = useState([]);
 
   useEffect(() => {
     axios.get('/api/jogos').then(resultado => {
-      setjogos(resultado.data);
+      setJogos(resultado.data.map(item => ({
+        ...item,
+        dataModificada: formatarData(item.data)
+      })));
     })
-  }, [])
+  }, []);
 
   function getAll() {
     axios.get('/api/jogos').then(resultado => {
-      setjogos(resultado.data);
+      setJogos(resultado.data);
     })
   }
 
   function excluir(id) {
     if (confirm('Deseja realmente excluir o registro?')) {
-      axios.delete('/api/jogos/' + id)
-      getAll()
+      axios.delete('/api/jogos/' + id);
+      getAll();
     }
   }
 
+  const formatarData = (data) => {
+    const partes = data.split('/');
+
+    if (partes.length === 3) {
+      const dia = partes[0];
+      const mes = partes[1];
+      const ano = partes[2];
+
+      if (!isNaN(dia) && !isNaN(mes) && !isNaN(ano)) {
+        return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+      }
+    }
+
+    return data;
+  };
+
+  const eventos = jogos.map(item => ({
+    title: [item.casa, 'x', item.visitante],
+    date: item.dataModificada
+  }));
 
   return (
     <Pagina>
@@ -83,8 +107,24 @@ const index = () => {
           </tbody>
         </Table>
       </div>
+      <br></br>
+      <h3 className='text-white text-center'>Calendário de jogos</h3>
+      <br></br>
+      <Card className='p-3'>
+        <FullCalendar
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          weekends={true}
+          events={eventos}
+          height="500px"
+          locale="pt-br"
+        />
+      </Card>
+      <br></br>
+      <br></br>
+      <br></br>
     </Pagina>
-  )
-}
+  );
+};
 
-export default index
+export default Index;
