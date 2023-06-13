@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { HiCheck } from 'react-icons/hi'
 import { HiArrowNarrowLeft } from 'react-icons/hi'
 import equipeValidator from '@/validators/equipeValidator'
+import { mask } from 'remask'
 
 const form = () => {
 
@@ -32,6 +33,14 @@ const form = () => {
     function alterar(dados) {
         axios.put('/api/equipes/' + query.id, dados)
         push('/equipes')
+    }
+
+    function handleChange(event) {
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+
+        setValue(name, mask(valor, mascara));
     }
 
     return (
@@ -86,10 +95,12 @@ const form = () => {
                                     <Form.Group className="mb-3" controlId="titulos">
                                         <Form.Label style={{ color: 'white' }}>Títulos:</Form.Label>
                                         <Form.Control
+                                            mask='99'
                                             isInvalid={errors.titulos}
                                             isValid={!errors.titulos}
                                             type="number"
                                             {...register('titulos', equipeValidator.titulos)}
+                                            onChange={handleChange}
                                             style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                             placeholder="Digite a quantidade de títulos"
                                         />
@@ -100,10 +111,12 @@ const form = () => {
                                     <Form.Group className="mb-3" controlId="quant_jogadores">
                                         <Form.Label style={{ color: 'white' }}>Quantidade de jogadores:</Form.Label>
                                         <Form.Control
+                                            mask='99'
                                             isInvalid={errors.quant_jogadores}
                                             isValid={!errors.quant_jogadores}
                                             type="number"
                                             {...register('quant_jogadores', equipeValidator.quant_jogadores)}
+                                            onChange={handleChange}
                                             style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                             placeholder="Digite a quantidade de jogadores"
                                         />
@@ -116,7 +129,7 @@ const form = () => {
                                 <Link href="/equipes/" className="me-3">
                                     <Button variant="success" onClick={handleSubmit(alterar)}>
                                         <HiCheck style={{ marginRight: '5px' }} />
-                                        Salvar
+                                        Alterar
                                     </Button>
                                 </Link>
                                 <Link href="/equipes/">

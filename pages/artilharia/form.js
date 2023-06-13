@@ -8,10 +8,11 @@ import { useForm } from 'react-hook-form'
 import { HiCheck } from 'react-icons/hi'
 import { HiArrowNarrowLeft } from 'react-icons/hi'
 import artilhariaValidator from '@/validators/artilhariaValidator'
+import { mask } from 'remask';
 
 const form = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm()
     const { push } = useRouter()
     const [equipes, setEquipes] = useState([]);
     const [jogadores, setJogadores] = useState([]);
@@ -38,6 +39,14 @@ const form = () => {
         axios.post('/api/artilharia', dados)
         push('/artilharia')
 
+    }
+    
+    function handleChange(event) {
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+
+        setValue(name, mask(valor, mascara));
     }
 
     return (
@@ -107,10 +116,12 @@ const form = () => {
                                 <Form.Group className="mb-3" controlId="gols">
                                     <Form.Label style={{ color: 'white' }}>Quantidade de gols:</Form.Label>
                                     <Form.Control
+                                        mask='99'
                                         isInvalid={errors.gols}
                                         isValid={!errors.gols}
-                                        type="number"
+                                        type="text"
                                         {...register('gols', artilhariaValidator.gols)}
+                                        onChange={handleChange}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de gols"
                                     />
@@ -121,10 +132,12 @@ const form = () => {
                                 <Form.Group className="mb-3" controlId="quant_jogos">
                                     <Form.Label style={{ color: 'white' }}>Quantidade de jogos:</Form.Label>
                                     <Form.Control
+                                        mask='99'
                                         isInvalid={errors.quant_jogos}
                                         isValid={!errors.quant_jogos}
-                                        type="number"
+                                        type="text"
                                         {...register('quant_jogos', artilhariaValidator.quant_jogos)}
+                                        onChange={handleChange}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de jogos"
                                     />
@@ -135,10 +148,12 @@ const form = () => {
                                 <Form.Group className="mb-3" controlId="assistencias">
                                     <Form.Label style={{ color: 'white' }}>Assistências:</Form.Label>
                                     <Form.Control
+                                        mask='99'
                                         isInvalid={errors.assistencias}
                                         isValid={!errors.assistencias}
-                                        type="number"
+                                        type="text"
                                         {...register('assistencias', artilhariaValidator.assistencias)}
+                                        onChange={handleChange}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a quantidade de assistências"
                                     />

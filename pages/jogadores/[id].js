@@ -9,11 +9,12 @@ import { useForm } from 'react-hook-form'
 import { HiCheck } from 'react-icons/hi'
 import { HiArrowNarrowLeft } from 'react-icons/hi'
 import jogadorValidator from '@/validators/jogadorValidator'
+import { mask } from 'remask'
 
 const form = () => {
 
     const { push, query } = useRouter()
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors }  } = useForm()
     const [equipes, setEquipes] = useState([]);
 
     useEffect(() => {
@@ -45,6 +46,14 @@ const form = () => {
         push('/jogadores')
     }
 
+    function handleChange(event) {
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+
+        setValue(name, mask(valor, mascara));
+    }
+    
     return (
         <Row>
             <Col xs={12} md={6}>
@@ -124,12 +133,14 @@ const form = () => {
                                 <Form.Group className="mb-3" controlId="contato">
                                     <Form.Label style={{ color: 'white' }}>Contato:</Form.Label>
                                     <Form.Control
+                                        mask='(99) 9.9999-9999'
                                         isInvalid={errors.contato}
                                         isValid={!errors.contato}
-                                        type="number"
+                                        type="text"
                                         {...register('contato', jogadorValidator.contato)}
+                                        onChange={handleChange}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a quantidade de assistências"
+                                        placeholder="Digite o contato do jogador"
                                     />
                                     {errors.contato && <p style={{ color: 'red' }}>{errors.contato.message}</p>}
                                 </Form.Group>
@@ -140,11 +151,13 @@ const form = () => {
                                 <Form.Group className="mb-3" controlId="idade">
                                     <Form.Label style={{ color: 'white' }}>Idade:</Form.Label>
                                     <Form.Control
+                                        mask='99'
                                         isInvalid={errors.idade}
                                         isValid={!errors.idade}
-                                        type="number"
+                                        type="text"
                                         {...register('idade', jogadorValidator.idade)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
+                                        onChange={handleChange}
                                         placeholder="Digite a Idade do Jogador"
                                     />
                                     {errors.idade && <p style={{ color: 'red' }}>{errors.idade.message}</p>}
@@ -154,10 +167,12 @@ const form = () => {
                                 <Form.Group className="mb-3" controlId="altura">
                                     <Form.Label style={{ color: 'white' }}>Altura:</Form.Label>
                                     <Form.Control
+                                        mask='9.99 (m)'
                                         isInvalid={errors.altura}
                                         isValid={!errors.altura}
-                                        type="number"
+                                        type="text"
                                         {...register('altura', jogadorValidator.altura)}
+                                        onChange={handleChange}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
                                         placeholder="Digite a Altura do jogador"
                                     />

@@ -10,7 +10,7 @@ const jogadorValidator = {
             message: 'Máximo de caracteres é 30'
         },
         pattern: {
-            value: /^[A-Za-z\s´^ö]+$/,
+            value: /^[A-Za-z\s´^öÇç]+$/,
             message: 'Digite apenas letras'
         }
     },
@@ -19,13 +19,13 @@ const jogadorValidator = {
     },
     contato: {
         required: 'Campo obrigatório',
+        pattern: {
+            value: /^\(\d{2}\) \d\.\d{4}-\d{4}$/,
+            message: 'Digite no formato certo (00) 0.0000-0000'
+        }
     },
     idade: {
         required: 'Campo obrigatório',
-        maxLength: {
-            value: 2,
-            message: 'Máximo de 2 digitos'
-        },
         min: {
             value: 18,
             message: 'Idade mínima de 18 anos'
@@ -33,10 +33,10 @@ const jogadorValidator = {
     },
     altura: {
         required: 'Campo obrigatório',
-        max: {
-            value: 2.5,
-            message: 'Altura máxima de 2.5 metros'
-        }
+        pattern: {
+            value: /^\d\.\d{2} \(m\)$/,
+            message: 'Digite no formato correto 0.00 (m)',
+          }
     },
     equipe: {
         required: 'Campo obrigatório',

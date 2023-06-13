@@ -5,8 +5,15 @@ const jogoValidator = {
     visitante: {
         required: 'Campo Obrigatório'
     },
-    data: {
+    fase: {
         required: 'Campo Obrigatório'
+    },
+    data: {
+        required: 'Campo Obrigatório',
+        pattern: {
+            value: /^\d{2}\/\d{2}\/\d{4}$/,
+            message: 'Digite no formato certo 00/00/0000'
+        }
     },
     horario: {
         required: 'Campo Obrigatório'

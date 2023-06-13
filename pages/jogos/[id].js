@@ -9,13 +9,14 @@ import { useForm } from 'react-hook-form'
 import { HiCheck } from 'react-icons/hi'
 import { HiArrowNarrowLeft } from 'react-icons/hi'
 import jogoValidator from '@/validators/jogoValidator'
+import { mask } from 'remask'
 
 const form = () => {
 
     const { push, query } = useRouter()
     const { register, handleSubmit, setValue, formState: { errors } } = useForm()
     const [equipes, setEquipes] = useState([]);
-    
+
     useEffect(() => {
         getAll();
     }, []);
@@ -24,6 +25,14 @@ const form = () => {
         axios.get('/api/equipes').then(resultado => {
             setEquipes(resultado.data);
         });
+    }
+
+    function handleChange(event) {
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+
+        setValue(name, mask(valor, mascara));
     }
 
     useEffect(() => {
@@ -83,6 +92,8 @@ const form = () => {
                                     </Form.Control>
                                     {errors.casa && <p style={{ color: 'red' }}>{errors.casa.message}</p>}
                                 </Form.Group>
+                            </Col>
+                            <Col>
                                 <Form.Group className="mb-3" controlId="visitante">
                                     <Form.Label style={{ color: 'white' }}>Visitante:</Form.Label>
                                     <Form.Control
@@ -105,15 +116,39 @@ const form = () => {
                         </Row>
                         <Row>
                             <Col>
+                                <Form.Group className="mb-3" controlId="fase">
+                                    <Form.Label style={{ color: 'white' }}>Fase:</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        isInvalid={errors.fase}
+                                        isValid={!errors.fase}
+                                        {...register('fase', jogoValidator.fase)}
+                                        style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
+                                    >
+                                        <option value="">Selecione a fase</option>
+                                        <option value="Final">Final</option>
+                                        <option value="Semi-Final">Semi-Final</option>
+                                        <option value="Quartas de Finais">Quartas de Finais</option>
+                                        <option value="Oitavas de Finais">Oitavas de Finais</option>
+                                        <option value="Fase de Grupos">Fase de Grupos</option>
+                                    </Form.Control>
+                                    {errors.fase && <p style={{ color: 'red' }}>{errors.fase.message}</p>}
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
                                 <Form.Group className="mb-3" controlId="data">
                                     <Form.Label style={{ color: 'white' }}>Data:</Form.Label>
                                     <Form.Control
+                                        mask='99/99/9999'
                                         isInvalid={errors.data}
                                         isValid={!errors.data}
-                                        type="date"
+                                        type="text"
                                         {...register('data', jogoValidator.data)}
+                                        onChange={handleChange}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a quantidade de títulos"
+                                        placeholder="Digite a data do jogo"
                                     />
                                     {errors.data && <p style={{ color: 'red' }}>{errors.data.message}</p>}
                                 </Form.Group>
@@ -127,18 +162,17 @@ const form = () => {
                                         type="time"
                                         {...register('horario', jogoValidator.horario)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Digite a quantidade de jogadores"
+                                        placeholder="Digite o horário"
                                     />
                                     {errors.horario && <p style={{ color: 'red' }}>{errors.horario.message}</p>}
                                 </Form.Group>
-
                             </Col>
                         </Row>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                             <Link href="/jogos/" className="me-3">
                                 <Button variant="success" onClick={handleSubmit(alterar)}>
                                     <HiCheck style={{ marginRight: '5px' }} />
-                                    Salvar
+                                    Alterar
                                 </Button>
                             </Link>
                             <Link href="/jogos/">

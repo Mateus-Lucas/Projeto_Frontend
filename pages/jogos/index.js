@@ -51,6 +51,7 @@ const index = () => {
               <th>Casa</th>
               <td>#</td>
               <th>Visitante</th>
+              <th>Fase</th>
               <th>Data</th>
               <th>Horário</th>
             </tr>
@@ -74,6 +75,7 @@ const index = () => {
                 <td>{item.casa}</td>
                 <td>x</td>
                 <td>{item.visitante}</td>
+                <td>{item.fase}</td>
                 <td>{item.data}</td>
                 <td>{item.horario}</td>
               </tr>
