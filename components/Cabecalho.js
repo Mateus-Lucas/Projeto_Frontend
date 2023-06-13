@@ -8,7 +8,7 @@ const Cabecalho = () => {
             <Navbar bg="dark" variant="dark" className="custom-navbar" >
                 <Container>
                     <Nav className="mx-auto">
-                        <Navbar.Brand href="#home">Inicio</Navbar.Brand>
+                        <Navbar.Brand href="/">Inicio</Navbar.Brand>
                         <Nav.Link href="/equipes">Equipes</Nav.Link>
                         <Nav.Link href="/jogadores">Jogadores</Nav.Link>
                         <Nav.Link href="/jogos">Jogos</Nav.Link>

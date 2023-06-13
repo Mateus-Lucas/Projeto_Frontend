@@ -33,9 +33,9 @@ const jogadorValidator = {
     },
     altura: {
         required: 'Campo obrigatório',
-        pattern: {
-            value: /^\d{1,3}(?:,\d{1,2})?$/,
-            message: 'Digite nesse padrão 0,00'
+        max: {
+            value: 2.5,
+            message: 'Altura máxima de 2.5 metros'
         }
     },
     equipe: {
