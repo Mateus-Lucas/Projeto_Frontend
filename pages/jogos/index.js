@@ -5,10 +5,9 @@ import { BsTrash3Fill } from 'react-icons/bs';
 import { BiEditAlt } from 'react-icons/bi';
 import Link from 'next/link';
 import axios from 'axios';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-
 import Pagina from '@/components/Pagina';
+import FullCalendar from '@/components/FullCalendar';
+import Rodape from '@/components/Rodape';
 
 const Index = () => {
   const [jogos, setJogos] = useState([]);
@@ -17,7 +16,6 @@ const Index = () => {
     axios.get('/api/jogos').then(resultado => {
       setJogos(resultado.data.map(item => ({
         ...item,
-        dataModificada: formatarData(item.data)
       })));
     })
   }, []);
@@ -34,27 +32,6 @@ const Index = () => {
       getAll();
     }
   }
-
-  const formatarData = (data) => {
-    const partes = data.split('/');
-
-    if (partes.length === 3) {
-      const dia = partes[0];
-      const mes = partes[1];
-      const ano = partes[2];
-
-      if (!isNaN(dia) && !isNaN(mes) && !isNaN(ano)) {
-        return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
-      }
-    }
-
-    return data;
-  };
-
-  const eventos = jogos.map(item => ({
-    title: [item.casa, 'x', item.visitante],
-    date: item.dataModificada
-  }));
 
   return (
     <Pagina>
@@ -111,14 +88,7 @@ const Index = () => {
       <h3 className='text-white text-center'>Calendário de jogos</h3>
       <br></br>
       <Card className='p-3'>
-        <FullCalendar
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          weekends={true}
-          events={eventos}
-          height="500px"
-          locale="pt-br"
-        />
+        <FullCalendar />
       </Card>
       <br></br>
       <br></br>
