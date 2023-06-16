@@ -9,18 +9,18 @@ export default function handler(req, res) {
    
   if (req.method == 'GET') {
 
-    get(child(ref(db), 'ranking/' + id)).then(snapshot => {
+    get(child(ref(db), 'overall/' + id)).then(snapshot => {
       res.status(200).json(snapshot.val())
     })
 
   } else if (req.method == 'PUT') {
 
     const dados = req.body
-    update(ref(db, 'ranking/' + id), dados)
+    update(ref(db, 'overall/' + id), dados)
 
   } else if (req.method == 'DELETE') {
 
-    remove(ref(db, 'ranking/' + id))
+    remove(ref(db, 'overall/' + id))
     res.status(200).json(id)
   }
 }

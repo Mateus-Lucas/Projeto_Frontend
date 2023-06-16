@@ -13,7 +13,7 @@ const Cabecalho = () => {
                         <Nav.Link href="/jogadores">Jogadores</Nav.Link>
                         <Nav.Link href="/jogos">Jogos</Nav.Link>
                         <Nav.Link href="/artilharia">Artilharia</Nav.Link>
-                        <Nav.Link href="/ranking">Ranking</Nav.Link>
+                        <Nav.Link href="/overall">Overall</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

@@ -108,6 +108,7 @@ const form = () => {
                                     >
                                         <option value="Atacante">Atacante</option>
                                         <option value="Meio-Campo">Meio-Campo</option>
+                                        <option value="Laterar">Lateral</option>
                                         <option value="Zagueiro">Zagueiro</option>
                                         <option value="Goleiro">Goleiro</option>
                                     </Form.Control>
