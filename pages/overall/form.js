@@ -92,11 +92,11 @@ const Formulario = () => {
                                             placeholder="Selecione a posição do jogador"
                                         >
                                             <option value="">Selecione uma opção</option>
-                                            <option value="Atacante">ATA</option>
-                                            <option value="Meio-Campo">MEI</option>
-                                            <option value="Laterar">LAT</option>
-                                            <option value="Zagueiro">ZAG</option>
-                                            <option value="Goleiro">GOL</option>
+                                            <option value="ATA">ATA</option>
+                                            <option value="MEI">MEI</option>
+                                            <option value="LAT">LAT</option>
+                                            <option value="ZAG">ZAG</option>
+                                            <option value="GOL">GOL</option>
                                         </Form.Control>
                                         {errors.posicao && <p style={{ color: 'red' }}>{errors.posicao.message}</p>}
                                     </Form.Group>

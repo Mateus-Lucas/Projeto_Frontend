@@ -1,6 +1,6 @@
 import Pagina from '@/components/Pagina'
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Table } from 'react-bootstrap'
+import { Button, Card, Col, Row, Table } from 'react-bootstrap'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BsTrash3Fill } from 'react-icons/bs'
 import { BiEditAlt } from 'react-icons/bi'
@@ -39,71 +39,98 @@ const Index = () => {
     return Math.floor(soma)
   }
 
+  const rows = Math.ceil(overall.length / 4)
 
   return (
     <Pagina titulo="overall">
-      <Button href="/overall/form" className="mb-2" variant="primary">
-        Novo
-        <AiOutlinePlus />
+      <br></br>
+      <h1 className='text-white text-center'>Overall</h1>
+      <Button href="/overall/form" className="mb-2" variant="light">
+        <b>Cadastrar Overall de Jogador</b>
+        {' '}<AiOutlinePlus />
       </Button>
-      <Table striped bordered hover variant="light" className="champions-table">
-        <thead>
-          <tr>
-            <th>Opções</th>
-            <th>Casa</th>
-            <td>#</td>
-            <th>Visitante</th>
-            <th>Fase</th>
-            <th>Data</th>
-            <th>Horário</th>
-            <th>Horário</th>
-          </tr>
-        </thead>
-        <tbody>
-          {overall.map(item => (
-            <tr key={item.id}>
-              <td>
-                <Link href={`/overall/${item.id}`}>
-                  <BiEditAlt
-                    title="Editar"
-                    className="me-3 champions-icon"
-                    style={{ cursor: 'pointer' }}
-                  />
-                </Link>
-                <BsTrash3Fill
-                  title="Excluir"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => excluir(item.id)}
-                  className="text-primary champions-icon"
-                />
-              </td>
-              <td>{item.nome}</td>
-              <td>{item.posicao}</td>
-              <td>{item.finalizacao}</td>
-              <td>{item.passe}</td>
-              <td>{item.velocidade}</td>
-              <td>{item.drible}</td>
-              <td>{item.defesa}</td>
-              <td>{item.fisico}</td>
-              <td>{calcularSomaItem(item)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Card className="fifa-card p-3">
-        <Card.Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8THeqljBI7ZHDHoyd5O9HqtUXAVwqay0LjFUcaPAFC2wlmFlG9qj_lZtyd9Wr_SV4FXs&usqp=CAU" />
-        <Card.Body>
-          <Card.Title className="card-name">Nome do Jogador 1</Card.Title>
-          <div className="card-bottom">
-            <Button href={`/overall/1`} variant="primary" className="me-2">
-              Editar <BiEditAlt />
-            </Button>
-            <Button variant="danger" onClick={() => excluir(1)}>
-              Excluir <BsTrash3Fill />
-            </Button>
-          </div>
-        </Card.Body>
-      </Card>
+      <br></br>
+      <br></br>
+      {Array.from({ length: rows }).map((_, rowIndex) => (
+        <Row key={rowIndex}>
+          {Array.from({ length: 4 }).map((_, colIndex) => {
+            const index = rowIndex * 4 + colIndex
+            const item = overall[index]
+            if (item) {
+              return (
+                <Col key={item.id}>
+                  <Card className='mb-2' style={{ maxWidth: '200px' }}>
+                    <Row className='m-2'>
+                      <Col>
+                        <Card.Title>{calcularSomaItem(item)}</Card.Title>
+                      </Col>
+                      <Col>
+                        <Card.Title>{item.posicao}</Card.Title>
+                      </Col>
+                    </Row>
+                    <Card.Img
+                      src='https://img.freepik.com/vetores-premium/silhueta-negra-de-um-jogador-de-futebol-correndo-com-a-bola_566661-3599.jpg?w=2000'
+                    />
+                    <Card.Body>
+                      <Card.Title className='text-center'>{item.nome}</Card.Title>
+                      <Row>
+                        <Col>
+                          <Card.Text><b>VEL</b> {item.velocidade}</Card.Text>
+                        </Col>
+                        <Col>
+                          <Card.Text><b>DRI</b> {item.drible}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Card.Text><b>FIN</b> {item.finalizacao}</Card.Text>
+                        </Col>
+                        <Col>
+                          <Card.Text><b>DEF</b> {item.defesa}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Card.Text><b>PAS</b> {item.passe}</Card.Text>
+                        </Col>
+                        <Col>
+                          <Card.Text><b>FIS</b> {item.fisico}</Card.Text>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                  <Row className='m-1'>
+                    <Col>
+                      <Link href={`/overall/${item.id}`}>
+                        <Button className='bg-light' style={{ cursor: 'pointer' }}>
+                          <BiEditAlt
+                            title="Editar"
+                            className="me-3 champions-icon text-primary"
+                            style={{ cursor: 'pointer' }}
+                          />
+                        </Button>
+                      </Link>
+                    </Col>
+                    <Col>
+                      <Button className='bg-light' style={{ cursor: 'pointer' }}>
+                        <BsTrash3Fill
+                          title="Excluir"
+                          onClick={() => excluir(item.id)}
+                          className="text-primary champions-icon"
+                        />
+                      </Button>
+                    </Col>
+                  </Row>
+                  <br></br>
+                  <br></br>
+                </Col>
+              )
+            } else {
+              return <Col key={colIndex} />
+            }
+          })}
+        </Row>
+      ))}
     </Pagina>
   )
 }
