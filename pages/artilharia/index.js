@@ -45,8 +45,22 @@ const Index = () => {
   return (
     <Pagina>
       <br />
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img src="/images/artilharia.jpg"
+            style={{
+              maxWidth: '100%',
+              borderRadius: '5px',
+              border: '4px solid white',
+              width: '800px'
+            }} />
+        </div>
+      </div>
+      <br></br>
+      <br></br>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h3 className="text-white">Artilharia da UEFA Champions League</h3>
+        <h1 className="text-white">Artilharia da UEFA Champions League</h1>
       </div>
       <br />
       <div className="champions-table-container">
@@ -91,9 +105,9 @@ const Index = () => {
                 <tr key={item.id}>
                   <td>
                     <Link href={'/artilharia/' + item.id}>
-                      <BiEditAlt className="me-3 champions-icon" style={{ cursor: 'pointer' }}  title='Editar'/>
+                      <BiEditAlt className="me-3 champions-icon" style={{ cursor: 'pointer' }} title='Editar' />
                     </Link>
-                    <BsTrash3Fill  title='Excluir'
+                    <BsTrash3Fill title='Excluir'
                       style={{ cursor: 'pointer' }}
                       onClick={() => excluir(item.id)}
                       className="text-primary champions-icon"
@@ -111,6 +125,8 @@ const Index = () => {
           </tbody>
         </Table>
       </div>
+      <br></br>
+      <br></br>
     </Pagina>
   );
 };

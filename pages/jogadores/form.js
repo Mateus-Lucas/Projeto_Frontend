@@ -11,7 +11,7 @@ import jogadorValidator from '@/validators/jogadorValidator'
 import { mask } from 'remask';
 
 const form = () => {
-    const { register, handleSubmit, formState: { errors }, setValue  } = useForm()
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm()
     const { push } = useRouter()
     const [equipes, setEquipes] = useState([]);
 
@@ -104,8 +104,8 @@ const form = () => {
                                         isValid={!errors.posicao}
                                         {...register('posicao', jogadorValidator.posicao)}
                                         style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
-                                        placeholder="Selecione a posição do jogador"
                                     >
+                                        <option value="">Selecione uma posição</option>
                                         <option value="Atacante">Atacante</option>
                                         <option value="Meio-Campo">Meio-Campo</option>
                                         <option value="Laterar">Lateral</option>
@@ -164,6 +164,20 @@ const form = () => {
                                         placeholder="Digite a Altura do jogador"
                                     />
                                     {errors.altura && <p style={{ color: 'red' }}>{errors.altura.message}</p>}
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3" controlId="nacionalidade">
+                                    <Form.Label style={{ color: 'white' }}>Nacionalidade:</Form.Label>
+                                    <Form.Control
+                                        isInvalid={errors.nacionalidade}
+                                        isValid={!errors.nacionalidade}
+                                        type="text"
+                                        {...register('nacionalidade', jogadorValidator.nome)}
+                                        style={{ backgroundColor: '#f1f1f1', color: '#000000' }}
+                                        placeholder="Digite o nacionalidade do jogador"
+                                    />
+                                    {errors.nacionalidade && <p style={{ color: 'red' }}>{errors.nacionalidade.message}</p>}
                                 </Form.Group>
                             </Col>
                         </Row>

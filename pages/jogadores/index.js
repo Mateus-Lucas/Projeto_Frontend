@@ -11,7 +11,6 @@ import axios from 'axios'
 const index = () => {
 
   const [jogadores, setjogadores] = useState([])
-  const [equipes, setEquipes] = useState([])
 
   useEffect(() => {
     getAll();
@@ -34,8 +33,22 @@ const index = () => {
   return (
     <Pagina>
       <br></br>
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img src="/images/jogadores.jpeg"
+            style={{
+              maxWidth: '100%',
+              borderRadius: '5px',
+              border: '4px solid white',
+              width: '800px'
+            }} />
+        </div>
+      </div>
+      <br></br>
+      <br></br>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h3 className='text-white'>Jogadores da UEFA Champions League</h3>
+        <h1 className='text-white'>Jogadores da UEFA Champions League</h1>
       </div>
       <br></br>
       <div className="champions-table-container">
@@ -53,6 +66,7 @@ const index = () => {
               <th>Contato</th>
               <th>Altura</th>
               <th>Equipe</th>
+              <th>Nacionalidade</th>
             </tr>
           </thead>
           <tbody>
@@ -77,11 +91,14 @@ const index = () => {
                 <td>{item.contato}</td>
                 <td>{item.altura}</td>
                 <td>{item.equipe}</td>
+                <td>{item.nacionalidade}</td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
+      <br></br>
+      <br></br>
     </Pagina>
   )
 }

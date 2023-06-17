@@ -31,8 +31,22 @@ const Index = () => {
   return (
     <Pagina>
       <br></br>
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img src="/images/equipes.jpg_large"
+            style={{
+              maxWidth: '100%',
+              borderRadius: '5px',
+              border: '4px solid white',
+              width: '800px'
+            }} />
+        </div>
+      </div>
+      <br></br>
+      <br></br>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h3 className='text-white'>Equipes da UEFA Champions League</h3>
+        <h1 className='text-white'>Equipes da UEFA Champions League</h1>
       </div>
       <br></br>
       <div className="champions-table-container">
@@ -76,7 +90,7 @@ const Index = () => {
         </Table>
       </div>
       <br></br>
-      <ApexChart/>
+      <ApexChart />
       <br></br>
       <br></br>
     </Pagina>
